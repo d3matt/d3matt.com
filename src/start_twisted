@@ -36,7 +36,7 @@ case $ACTION in
         ;;
     status)
         if status_of_twisted ; then
-            echo "twistd is running"
+            echo "twistd is running ($(pid_of_twisted))"
         else
             echo "twistd is not running"
         fi
