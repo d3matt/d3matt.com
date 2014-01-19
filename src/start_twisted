@@ -1,0 +1,51 @@
+#!/bin/bash
+TOP=$(dirname $0)
+TOP=$(dirname $TOP)
+
+[ -n $VIRTUAL_ENV ] && {
+    source ~/PYENV/bin/activate
+}
+
+[ -f ${TOP}/d3matt.db ] || python ${TOP}/src/d3matt/manage.py syncdb
+
+ACTION=$1
+[ -z "$ACTION" ] && ACTION=start
+
+
+cd $TOP/src
+
+pid_of_twisted() {
+    cat $TOP/src/twistd.pid 2> /dev/null
+}
+status_of_twisted() {
+    local PID=$(pid_of_twisted)
+    [ -z "$PID" ] && return 1
+    ps -p $PID &> /dev/null
+    return $?
+}
+case $ACTION in
+    start)
+        if status_of_twisted ; then
+            echo "twisted is already running at pid $(pid_of_twisted)"
+            exit 1
+        fi
+        mv twistd.log{,.old}
+        twistd -y servers.py
+        sleep 1
+        awk '/Site starting on/{print $NF}' < twistd.log > twistd.port
+        ;;
+    status)
+        if status_of_twisted ; then
+            echo "twistd is running"
+        else
+            echo "twistd is not running"
+        fi
+        ;;
+    stop)
+        kill -9 $(cat twistd.pid)
+        ;;
+    *)
+        echo "Bad action"
+        exit 1
+        ;;
+esac
