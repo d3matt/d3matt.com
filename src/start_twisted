@@ -1,6 +1,6 @@
 #!/bin/bash
 TOP=$(dirname $0)
-TOP=$(dirname $TOP)
+TOP=$(cd $TOP/.. && pwd)
 
 [ -n $VIRTUAL_ENV ] && {
     source ~/PYENV/bin/activate
