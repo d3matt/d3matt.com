@@ -29,8 +29,8 @@ case $ACTION in
             echo "twisted is already running at pid $(pid_of_twisted)"
             exit 1
         fi
-        mv twistd.log{,.old}
-        twistd -y servers.py
+        mv -f twistd.log{,.old} &> /dev/null
+        twistd -n -y servers.py --logfile=twistd.log &
         sleep 1
         awk '/Site starting on/{print $NF}' < twistd.log > twistd.port
         ;;
@@ -42,7 +42,9 @@ case $ACTION in
         fi
         ;;
     stop)
+        [ ! -f twistd.pid ] && exit 1
         kill -9 $(cat twistd.pid)
+        rm twistd.pid
         ;;
     *)
         echo "Bad action"
