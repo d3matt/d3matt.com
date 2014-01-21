@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css">
+</head>
+
+<body>
+  <div class = "container">
+  <div class = "row">
+  <div class = "span12">
+
+  {% block header %}
+  <h1>
+      {% block subtitle %}{% endblock %}
+  </h1>
+  {% endblock %}
+
+  {% block content %}{% endblock %}
+
+  {% block footer %}{% endblock %}
+
+  </div>
+  </div>
+  </div>
+
+</body>
+</html>

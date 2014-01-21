@@ -9,4 +9,6 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^d3matt/rv', 'd3matt.views.request_viewer'),
+    url(r'^d3matt$', 'd3matt.views.front'),
 )

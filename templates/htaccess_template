@@ -1,0 +1,22 @@
+RewriteEngine on
+# -FrontPage-
+
+IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
+
+<Limit GET POST>
+order deny,allow
+deny from all
+allow from all
+</Limit>
+<Limit PUT DELETE>
+order deny,allow
+deny from all
+</Limit>
+AuthName d3matt.com
+AuthUserFile /home/d3matcom/public_html/_vti_pvt/service.pwd
+AuthGroupFile /home/d3matcom/public_html/_vti_pvt/service.grp
+RewriteCond %{HTTP_HOST} ^d3matt\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.d3matt\.com$
+RewriteRule ^admin\/(.*) "http\:\/\/127\.0\.0\.1\:@@@PORT@@@\/admin/$1" [P,L]
+RewriteRule ^static\/(.*) "http\:\/\/127\.0\.0\.1\:@@@PORT@@@\/static/$1" [P,L]
+RewriteRule ^d3matt\/(.*) "http\:\/\/127\.0\.0\.1\:@@@PORT@@@\/d3matt/$1" [P,L]
