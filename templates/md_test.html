@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Markdown test{% endblock %}
+{% block subtitle %}Markdown test{% endblock %}
+
+{% block content %}
+    <textarea id="text-input" oninput="this.editor.update()"
+              rows="6" cols="60">Type **Markdown** here.</textarea> <br/>
+    <input type="checkbox" name="previewEn" id="previewEn" value="Bike"
+        checked="true" onchange="dge('text-input').editor.update()" >Enable Preview<br/>
+
+    <div id="preview" > </div>
+    <script>
+      function Editor(input, preview) {
+        this.update = function () {
+          if(dge("previewEn").checked) {
+            preview.innerHTML = '<div id="preview-inner" class="well well-sm"></div>';
+            dge("preview-inner").innerHTML = markdown.toHTML(input.value);
+          }
+          else {
+            preview.innerHTML = '';
+          }
+        };
+        input.editor = this;
+        this.update();
+      }
+      var dge = function (id) { return document.getElementById(id); };
+      new Editor(dge("text-input"), dge("preview"));
+    </script>
+
+{% endblock %}
