@@ -4,7 +4,7 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render_to_response
 
 LINKS = [
-    ('frontpage', '/d3matt'),
+    ('frontpage', '/d3matt/'),
     ('md test', '/d3matt/md'),
 ]
 
