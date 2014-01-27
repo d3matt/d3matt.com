@@ -33,6 +33,7 @@ case $ACTION in
         twistd -n -y servers.py --logfile=twistd.log &
         sleep 5
         cat twistd.log | awk '/Site starting on/{print $NF > "twistd.port"}'
+        cat twistd.port
         ;;
     status)
         if status_of_twisted ; then
