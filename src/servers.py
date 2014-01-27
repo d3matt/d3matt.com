@@ -37,7 +37,7 @@ wsgiThreadPool.start()
 reactor.addSystemEventTrigger('after', 'shutdown', wsgiThreadPool.stop)
 djangoResource = WSGIResource(reactor, wsgiThreadPool, WSGIHandler())
 root = Root(djangoResource)
-root.putChild('static', static.File(os.path.abspath(os.path.join(PROJ_ROOT, '..', 'www', 'static'))))
+root.putChild('static', static.File(os.path.abspath(os.path.join(PROJ_ROOT, '..', 'static'))))
 
 web = internet.TCPServer(0, server.Site(root))
 web.setServiceParent(application)
