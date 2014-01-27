@@ -31,7 +31,7 @@ case $ACTION in
         fi
         mv -f twistd.log{,.old} &> /dev/null
         twistd -n -y servers.py --logfile=twistd.log &
-        sleep 1
+        sleep 5
         cat twistd.log | awk '/Site starting on/{print $NF > "twistd.port"}'
         ;;
     status)
