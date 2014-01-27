@@ -13,8 +13,8 @@ def request_viewer(request):
     response.write(repr(request))
     return response
 
-def front(request):
+def front(request, *args, **kwargs):
     return render_to_response('frontpage.html', {'LINKS': LINKS, 'PAGE': 'frontpage'})
 
-def md_test(request):
+def md_test(request, *args, **kwargs):
     return render_to_response('md_test.html', {'LINKS': LINKS, 'PAGE': 'md test'})

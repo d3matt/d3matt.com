@@ -19,5 +19,4 @@ RewriteCond %{HTTP_HOST} ^d3matt\.com$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.d3matt\.com$
 RewriteRule ^admin\/(.*) "http\:\/\/127\.0\.0\.1\:@@@PORT@@@\/admin/$1" [P,L]
 RewriteRule ^static\/(.*) "http\:\/\/127\.0\.0\.1\:@@@PORT@@@\/static/$1" [P,L]
-RewriteRule ^d3matt "http\:\/\/127\.0\.0\.1\:@@@PORT@@@\/d3matt" [P,L]
 RewriteRule ^d3matt\/(.*) "http\:\/\/127\.0\.0\.1\:@@@PORT@@@\/d3matt/$1" [P,L]
