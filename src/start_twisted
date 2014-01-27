@@ -23,6 +23,13 @@ status_of_twisted() {
     ps -p $PID &> /dev/null
     return $?
 }
+
+daemonize() {
+    nohup twistd -n -y servers.py --logfile=twistd.log 0<&- &>/dev/null &
+    sleep 1
+    exit 0
+}
+
 case $ACTION in
     start)
         if status_of_twisted ; then
@@ -30,8 +37,8 @@ case $ACTION in
             exit 1
         fi
         mv -f twistd.log{,.old} &> /dev/null
-        twistd -n -y servers.py --logfile=twistd.log &
-        sleep 5
+        ( daemonize ) &
+        wait
         cat twistd.log | awk '/Site starting on/{print $NF > "twistd.port"}'
         cat twistd.port
         ;;
