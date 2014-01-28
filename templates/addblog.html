@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Add Blog Post{% endblock %}
+{% block subtitle %}Add Blog Post{% endblock %}
+
+{% block content %}
+    <form action="" method="post" role="form">
+      {% csrf_token %}
+      <div class="field">
+
+        
+        {% if form.title.errors %}
+        <div class="form-group has-error">
+          {% for error in form.title.errors %}
+            <label class="control-label" for="inputError">{{error}}</label>
+          {% endfor %}
+        {% else %}
+        <div class="form-group">
+        {% endif %}
+          {{ form.title }}
+        </div>
+
+        {% if form.content.errors %}
+        <div class="form-group has-error">
+          {% for error in form.content.errors %}
+            <label class="control-label" for="inputError">{{error}}</label>
+          {% endfor %}
+        {% else %}
+        <div class="form-group">
+        {% endif %}
+          {{ form.content }}
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary">
+      </div>
+    </form>
+
+{% endblock %}
