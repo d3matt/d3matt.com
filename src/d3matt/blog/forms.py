@@ -7,17 +7,22 @@ from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 
 from blog.models import BlogPost
 
-class AddBlogForm(forms.Form):
-    title = forms.CharField()
-    content = forms.CharField(widget=forms.Textarea)
-
-    helper = FormHelper()
-
-    helper.layout = Layout(
+BLOG_LAYOUT=Layout(
         'title',
         'content',
-        FormActions( Submit('save_changes', 'Save changes', css_class="btn-primary") )
     )
+BLOG_SAVE = FormActions( Submit('save_changes', 'Save changes', css_class="btn-primary") )
+BLOG_DRAFT_SAVE = FormActions(
+    Submit('save_changes', 'Save changes', css_class="btn-primary"),
+    Submit('save_draft', 'Save As Draft', css_class="btn-primary"))
+
+
+class BlogForm(forms.ModelForm):
+    title = forms.CharField()
+    content = forms.CharField(widget=forms.Textarea)
+    class Meta:
+        model = BlogPost
+        fields = [ 'title', 'content' ]
 
     def clean_title(self):
         txt = self.cleaned_data['title']
@@ -30,6 +35,18 @@ class AddBlogForm(forms.Form):
         if len(txt.split()) < 2:
             raise forms.ValidationError("blog post must consist of more than 2 words!")
         return txt
+
+class AddBlogForm(BlogForm):
+    helper = FormHelper()
+    helper.layout = Layout(BLOG_LAYOUT, BLOG_DRAFT_SAVE)
+
+class EditBlogForm(BlogForm):
+    helper = FormHelper()
+    helper.layout = Layout(BLOG_LAYOUT, BLOG_SAVE)
+
+class EditDraftBlogForm(BlogForm):
+    helper = FormHelper()
+    helper.layout = Layout(BLOG_LAYOUT, BLOG_DRAFT_SAVE)
 
 class BlogAuthForm(AuthenticationForm):
     helper = FormHelper()
