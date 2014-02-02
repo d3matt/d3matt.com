@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+{% block title %}Blogs by {{user}}{% endblock %}
+{% block subtitle %}Blogs by {{user}}{% endblock %}
+
+{% block content %}
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Posted</th>
+      <th>Last Update</th>
+      <th>Draft</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% for post in user.blogpost_set.all %}
+    <tr>
+      <td><a href="/d3matt/blog/view/{{post.id}}/">{{post.id}}</a></td>
+      <td>{{post.title}}</td>
+      <td>{{post.post_date}}</td>
+      <td>{{post.update_date}}</td>
+      <td>{{post.draft}}</td>
+      <td><a href="/d3matt/blog/edit/{{post.id}}/">edit</a></td>
+    </tr>
+{% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}

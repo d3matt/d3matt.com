@@ -4,10 +4,14 @@
 {% block subtitle %}Markdown test{% endblock %}
 
 {% block content %}
-    <textarea id="text-input" oninput="this.editor.update()"
-              rows="6" cols="60">Type **Markdown** here.</textarea> <br/>
-    <input type="checkbox" name="previewEn" id="previewEn" value="Bike"
-        checked="true" onchange="dge('text-input').editor.update()" >Enable Preview<br/>
+    <textarea id="text-input" class="form-control" oninput="this.editor.update()"
+              rows="6" cols="60">Type **Markdown** *&amp;#xf004* here.</textarea> <br/>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="previewEn" id="previewEn" value="Bike"
+          checked="true" onchange="dge('text-input').editor.update()" >Enable Preview
+      </label>
+    </div>
 
     <div id="preview" > </div>
     <script>
@@ -16,6 +20,7 @@
           if(dge("previewEn").checked) {
             preview.innerHTML = '<div id="preview-inner" class="well well-sm"></div>';
             dge("preview-inner").innerHTML = markdown.toHTML(input.value);
+            dofontawesome($("#preview-inner"));
           }
           else {
             preview.innerHTML = '';

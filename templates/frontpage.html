@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}Hello World{% endblock %}
-{% block subtitle %}Hello World{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
   Hello World from django+twisted (using bootstrap)<i class="fa fa-fw">&#xf004</i>
@@ -9,5 +9,9 @@
 {% if user.is_authenticated %}
     <p>Welcome, {{ user.username }}.</p>
 {% endif %}
+
+{% for post in posts %}
+{% include "singleblog.html" with thispost=post user=user only %}
+{% endfor %}
 
 {% endblock %}

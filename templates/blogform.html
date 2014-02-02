@@ -9,4 +9,26 @@
 
 {% crispy form %}
 
+<div>
+    <br />
+    <input type="checkbox" name="previewEn" id="previewEn" value="Preview"
+        checked="true" onchange="update_preview()" >Enable Preview<br/>
+    <div id="preview" />
+</div>
+<script>
+    var update_preview = function() {
+        if($(previewEn).is(':checked')) {
+            $(preview).html('<h1>' + $(id_title).val() +'</h1><div id="previewinner" class="well well-sm" />');
+            $(previewinner).html(markdown.toHTML($(id_content).val()));
+            dofontawesome($(previewinner));
+        }
+        else {
+            $(preview).html('');
+        }
+    };
+    $(id_title).attr("oninput", 'update_preview()');
+    $(id_content).attr("oninput", 'update_preview()');
+    update_preview();
+</script>
+
 {% endblock %}

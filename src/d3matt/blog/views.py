@@ -23,7 +23,7 @@ def addblog(request, *args, **kwargs):
                 post.draft = True
             post.author = request.user
             post.save()
-            return redirect('/d3matt/')
+            return redirect("/d3matt/blog/view/%d/" % post.id)
     else:
         form = AddBlogForm()
     return render_to_response('blogform.html', {'form': form, 'form_type': 'Add Blog Post', 'LINKS': LINKS}, context_instance=RequestContext(request))
@@ -43,7 +43,7 @@ def editblog(request, *args, **kwargs):
             else:
                 newpost.edited = True
             newpost.save()
-            return redirect('/d3matt/')
+            return redirect("/d3matt/blog/view/%d/" % newpost.id)
     else:
         if post.draft:
             form = EditDraftBlogForm(instance = post)
@@ -56,6 +56,24 @@ def jsonblog(request, *args, **kwargs):
     cont = {}
     cont['title'] = post.title
     cont['content'] = post.content
+    cont['postdate'] = format(post.post_date, "%m/%d/%y %H:%M:%S")
     response = HttpResponse(content_type='text/json; charset=utf-8')
     json.dump(cont, response, indent=4)
     return response
+
+def viewblog(request, *args, **kwargs):
+    post = get_object_or_404(BlogPost, id=kwargs['blog'])
+    print kwargs['blog']
+    print post
+    return render_to_response('blogview.html', {'post': post, 'LINKS': LINKS},
+        context_instance=RequestContext(request))
+
+@login_required
+def myblogs(request, *args, **kwargs):
+    return render_to_response('bloglist.html', {'LINKS': LINKS},
+        context_instance=RequestContext(request))
+
+def front(request, *args, **kwargs):
+    posts = BlogPost.objects.exclude(draft=True).order_by('post_date').reverse()[:10]
+    return render_to_response('frontpage.html', {'posts': posts, 'LINKS': LINKS},
+        context_instance=RequestContext(request))

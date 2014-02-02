@@ -1,0 +1,25 @@
+  <h1>{{thispost.title}}</h1>
+  <div class="row">
+    <div class="col-md-4 small">By 
+{% if user.first_name %}
+      {{user.first_name}} {{user.last_name}}
+{% else %}
+      {{user}}
+{% endif %} at {{thispost.post_date}}
+    </div>
+{% if thispost.draft %}
+    <div class="col-md-4 col-md-offset-4 text-warning text-right small">Draft</div>
+{% elif thispost.edited %}
+    <div class="col-md-4 col-md-offset-4 text-warning text-right small">edited at {{thispost.update_date}}</div>
+{% endif %}
+  </div><!-- /row -->
+  <div class="row">
+    <div class="col-md-12">
+      <div id='blogcontent{{thispost.id}}' class='well well-sm'>
+      </div>
+    </div><!-- col -->
+  </div><!-- row -->
+  <script>
+    $(blogcontent{{thispost.id}}).html(markdown.toHTML('{% filter escapejs %}{{thispost.content | safe}}{% endfilter %}'));
+    dofontawesome($(blogcontent{{thispost.id}}));
+  </script>
