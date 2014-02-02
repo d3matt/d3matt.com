@@ -63,8 +63,6 @@ def jsonblog(request, *args, **kwargs):
 
 def viewblog(request, *args, **kwargs):
     post = get_object_or_404(BlogPost, id=kwargs['blog'])
-    print kwargs['blog']
-    print post
     return render_to_response('blogview.html', {'post': post, 'LINKS': LINKS},
         context_instance=RequestContext(request))
 

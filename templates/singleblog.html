@@ -1,10 +1,10 @@
   <h1>{{thispost.title}}</h1>
   <div class="row">
     <div class="col-md-4 small">By 
-{% if user.first_name %}
-      {{user.first_name}} {{user.last_name}}
+{% if thispost.author.first_name %}
+      {{thispost.author.first_name}} {{thispost.author.last_name}}
 {% else %}
-      {{user}}
+      {{thispost.author}}
 {% endif %} at {{thispost.post_date}}
     </div>
 {% if thispost.draft %}
