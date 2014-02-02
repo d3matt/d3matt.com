@@ -79,6 +79,9 @@ body {
           <ul class="dropdown-menu">
             <li><a href="/d3matt/blog/add/">Add Blog</a></li>
             <li><a href="/d3matt/blog/me/">My Blogs</a></li>
+            {% if user.is_superuser %}
+            <li><a href="/admin/">Adminstration</a></li>
+            {% endif %}
             <li class="divider"></li>
             <li><a href="/accounts/logout/">logout</a></li>
           </ul>
