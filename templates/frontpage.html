@@ -4,11 +4,7 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-  Hello World from django+twisted (using bootstrap)<i class="fa fa-fw">&#xf004</i>
-
-{% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}.</p>
-{% endif %}
+Matt's little hidey-hole on the internet.
 
 {% for post in posts %}
 {% include "singleblog.html" with thispost=post user=user only %}

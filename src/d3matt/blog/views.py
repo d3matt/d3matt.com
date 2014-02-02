@@ -75,5 +75,5 @@ def myblogs(request, *args, **kwargs):
 
 def front(request, *args, **kwargs):
     posts = BlogPost.objects.exclude(draft=True).order_by('post_date').reverse()[:10]
-    return render_to_response('frontpage.html', {'posts': posts, 'LINKS': LINKS},
+    return render_to_response('frontpage.html', {'posts': posts, 'LINKS': LINKS, 'PAGE': 'blog'},
         context_instance=RequestContext(request))

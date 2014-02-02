@@ -6,7 +6,7 @@ from django.template import RequestContext
 
 
 LINKS = [
-    ('frontpage', '/d3matt/'),
+    ('blog', '/d3matt/'),
     ('md test', '/d3matt/md'),
 ]
 
